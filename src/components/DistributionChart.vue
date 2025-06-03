@@ -127,9 +127,11 @@ const initializeChart = () => {
           data: [],
           backgroundColor: 'rgba(59, 130, 246, 0.8)',
           borderColor: 'rgba(59, 130, 246, 1)',
-          borderWidth: 2,
-          borderRadius: 6,
+          borderWidth: 1,
+          borderRadius: 0,
           borderSkipped: false,
+          categoryPercentage: 1.0,
+          barPercentage: 1.0,
         }]
       },
       options: {
@@ -209,6 +211,12 @@ const initializeChart = () => {
         animation: {
           duration: 800,
           easing: 'easeInOutQuart'
+        },
+        elements: {
+          bar: {
+            borderWidth: 1,
+            borderColor: 'rgba(59, 130, 246, 1)'
+          }
         }
       }
     })
