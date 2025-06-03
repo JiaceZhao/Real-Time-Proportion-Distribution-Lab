@@ -124,7 +124,6 @@
             <DistributionChart 
               :data="proportionData"
               :show-theoretical="false"
-              :key="`chart-${proportionData.length}-${Date.now()}`"
             />
           </div>
           
