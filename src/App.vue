@@ -14,6 +14,16 @@
             </div>
           </div>
           <div class="flex items-center space-x-3">
+            <a 
+              href="https://github.com/JiaceZhao/Real-Time-Proportion-Distribution-Lab"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-secondary flex items-center space-x-2 hover:bg-gray-100 transition-colors"
+              title="View on GitHub"
+            >
+              <Github class="w-4 h-4" />
+              <span class="hidden sm:inline">GitHub</span>
+            </a>
             <button 
               @click="resetData"
               class="btn-secondary flex items-center space-x-2"
@@ -198,12 +208,45 @@
         </div>
       </div>
     </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-16">
+      <div class="max-w-7xl mx-auto px-6 py-8">
+        <div class="flex flex-col items-center justify-center space-y-4">
+          <div class="flex items-center space-x-2 text-gray-600">
+            <BarChart3 class="w-5 h-5" />
+            <span class="font-semibold">Real-Time Proportion Distribution Lab</span>
+          </div>
+          <div class="text-center text-sm text-gray-500 space-y-2">
+            <div class="flex items-center justify-center space-x-4">
+              <span>👨‍💻 Created by <strong>JiaceZhao</strong></span>
+              <span>•</span>
+              <a 
+                href="https://github.com/JiaceZhao/Real-Time-Proportion-Distribution-Lab"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-blue-600 hover:text-blue-800 transition-colors flex items-center space-x-1"
+              >
+                <Github class="w-4 h-4" />
+                <span>View Source</span>
+              </a>
+            </div>
+            <div>
+              Perfect for statistics education, science fair projects, and data visualization
+            </div>
+            <div class="text-xs">
+              MIT License - Free for educational and commercial use
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
-import { BarChart3, Plus, List, TrendingUp, RotateCcw } from 'lucide-vue-next'
+import { BarChart3, Plus, List, TrendingUp, RotateCcw, Github } from 'lucide-vue-next'
 import DistributionChart from './components/DistributionChart.vue'
 import DataManager from './components/DataManager.vue'
 
