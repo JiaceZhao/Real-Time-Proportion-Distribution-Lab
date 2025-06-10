@@ -13,13 +13,15 @@
               <p class="text-sm text-gray-600">Real-time proportion data collection</p>
             </div>
           </div>
-          <button 
-            @click="resetData"
-            class="btn-secondary flex items-center space-x-2"
-          >
-            <RotateCcw class="w-4 h-4" />
-            <span>Reset</span>
-          </button>
+          <div class="flex items-center space-x-3">
+            <button 
+              @click="resetData"
+              class="btn-secondary flex items-center space-x-2"
+            >
+              <RotateCcw class="w-4 h-4" />
+              <span>Reset</span>
+            </button>
+          </div>
         </div>
       </div>
     </header>
@@ -69,6 +71,13 @@
           </div>
         </div>
       </div>
+
+      <!-- Data Manager Component -->
+      <DataManager 
+        :current-data="proportionData"
+        @dataLoaded="handleDataLoaded"
+        @dataImported="handleDataImported"
+      />
 
       <!-- Recent Entries -->
       <div v-if="proportionData.length > 0" class="card">
@@ -193,14 +202,18 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import { BarChart3, Plus, List, TrendingUp, RotateCcw } from 'lucide-vue-next'
 import DistributionChart from './components/DistributionChart.vue'
+import DataManager from './components/DataManager.vue'
 
 // Reactive state
 const inputProportion = ref('')
 const proportionData = ref([])
 const validationMessage = ref('')
+
+// Local storage key for current session auto-save
+const CURRENT_SESSION_KEY = 'current_proportion_session'
 
 // Computed properties
 const isValidInput = computed(() => {
@@ -275,6 +288,9 @@ const addProportion = () => {
   proportionData.value.push(value)
   inputProportion.value = ''
   
+  // Auto-save current session
+  saveCurrentSession()
+  
   // Optional: scroll to histogram
   if (proportionData.value.length === 1) {
     setTimeout(() => {
@@ -284,10 +300,68 @@ const addProportion = () => {
 }
 
 const resetData = () => {
-  proportionData.value = []
-  inputProportion.value = ''
-  validationMessage.value = ''
+  if (proportionData.value.length > 0) {
+    if (confirm('确定要重置当前数据吗？建议先保存当前会话再重置。')) {
+      proportionData.value = []
+      inputProportion.value = ''
+      validationMessage.value = ''
+      localStorage.removeItem(CURRENT_SESSION_KEY)
+    }
+  } else {
+    proportionData.value = []
+    inputProportion.value = ''
+    validationMessage.value = ''
+  }
 }
+
+// Handle events from DataManager
+const handleDataLoaded = (data) => {
+  proportionData.value = [...data]
+  saveCurrentSession()
+}
+
+const handleDataImported = (data) => {
+  proportionData.value = [...data]
+  saveCurrentSession()
+}
+
+// Auto-save current session
+const saveCurrentSession = () => {
+  try {
+    if (proportionData.value.length > 0) {
+      localStorage.setItem(CURRENT_SESSION_KEY, JSON.stringify(proportionData.value))
+    } else {
+      localStorage.removeItem(CURRENT_SESSION_KEY)
+    }
+  } catch (error) {
+    console.error('Failed to save current session:', error)
+  }
+}
+
+// Load current session on startup
+const loadCurrentSession = () => {
+  try {
+    const saved = localStorage.getItem(CURRENT_SESSION_KEY)
+    if (saved) {
+      const data = JSON.parse(saved)
+      if (Array.isArray(data) && data.length > 0) {
+        proportionData.value = data
+      }
+    }
+  } catch (error) {
+    console.error('Failed to load current session:', error)
+  }
+}
+
+// Lifecycle
+onMounted(() => {
+  loadCurrentSession()
+})
+
+// Watch for data changes to auto-save
+watch(proportionData, () => {
+  saveCurrentSession()
+}, { deep: true })
 </script>
 
 <style scoped>
