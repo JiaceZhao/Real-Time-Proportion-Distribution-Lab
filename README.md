@@ -1,9 +1,17 @@
 
-# Real-Time Proportion Distribution Lab
+# Proportion Lab
 
-A beautiful, interactive Vue.js application for exploring sample proportion distributions in real-time. Perfect for statistics education, science fair projects, or understanding the Central Limit Theorem. Now featuring **comprehensive data management and Excel export capabilities**.
+<div align="center">
+  <img src="./logo.png" alt="Proportion Lab Logo" width="300" height="300">
+  
+  <h2>AP Statistics • Class of 2025</h2>
+  
+  <p>A beautiful, interactive laboratory for exploring proportion distributions in real-time. Perfect for AP Statistics education, science fair projects, or understanding the Central Limit Theorem.</p>
+</div>
 
-![Proportion Lab Screenshot](./showCase.png)
+## 🎯 Live Demo
+
+![Proportion Lab Screenshot](./showCase1.png)
 ## 🚀 一键启动 (One-Click Start)
 
 **完全自动化启动，无需任何前置环境！**
