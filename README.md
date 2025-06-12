@@ -3,9 +3,7 @@
 
 <div align="center">
   <img src="./logo.png" alt="Proportion Lab Logo" width="300" height="300">
-  
-  <h2>AP Statistics • Class of 2025</h2>
-  
+
   <p>A beautiful, interactive laboratory for exploring proportion distributions in real-time. Perfect for AP Statistics education, science fair projects, or understanding the Central Limit Theorem.</p>
 </div>
 
