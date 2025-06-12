@@ -1,16 +1,16 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+  <div class="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
     <!-- Header -->
     <header class="glass-effect">
       <div class="max-w-7xl mx-auto px-6 py-4">
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 bg-gradient-to-r from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
-              <BarChart3 class="w-6 h-6 text-white" />
+            <div class="w-12 h-12 flex items-center justify-center">
+              <FlaskIcon :size="48" />
             </div>
             <div>
-              <h1 class="text-2xl font-bold text-gray-900">Proportion Distribution Lab</h1>
-              <p class="text-sm text-gray-600">Real-time proportion data collection</p>
+              <h1 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">PROPORTION LAB</h1>
+              <p class="text-sm text-cyan-200">AP STATISTICS • Class of 2025</p>
             </div>
           </div>
           <div class="flex items-center space-x-3">
@@ -44,10 +44,10 @@
           <span>Enter Proportion Data</span>
         </h2>
         
-        <div class="bg-gradient-to-r from-primary-50 to-blue-50 rounded-xl p-8">
+        <div class="bg-gradient-to-r from-slate-800/50 to-blue-900/50 rounded-xl p-8 border border-slate-600/30">
           <div class="max-w-md mx-auto space-y-6">
             <div>
-              <label class="block text-lg font-medium text-gray-700 mb-3">
+              <label class="block text-lg font-medium text-cyan-200 mb-3">
                 Enter a proportion value (between 0 and 1):
               </label>
               <div class="flex space-x-3">
@@ -58,7 +58,7 @@
                   max="1" 
                   step="0.001"
                   placeholder="e.g., 0.65"
-                  class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-lg"
+                  class="flex-1 px-4 py-3 border border-slate-500/30 bg-slate-700/50 text-white rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-lg placeholder-slate-400"
                   @keyup.enter="addProportion"
                 >
                 <button 
@@ -69,13 +69,13 @@
                   <Plus class="w-5 h-5" />
                 </button>
               </div>
-              <div class="mt-2 text-sm text-gray-600">
+              <div class="mt-2 text-sm text-slate-300">
                 Examples: 0.25, 0.50, 0.75 (or as percentages: 25%, 50%, 75%)
               </div>
             </div>
             
             <!-- Input Validation Message -->
-            <div v-if="validationMessage" class="text-red-600 text-sm">
+            <div v-if="validationMessage" class="text-red-400 text-sm">
               {{ validationMessage }}
             </div>
           </div>
@@ -98,31 +98,31 @@
         
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div class="stat-card">
-            <div class="text-2xl font-bold text-primary-600">{{ proportionData.length }}</div>
-            <div class="text-sm text-gray-600">Total Entries</div>
+            <div class="text-2xl font-bold text-cyan-400">{{ proportionData.length }}</div>
+            <div class="text-sm text-slate-300">Total Entries</div>
           </div>
           <div class="stat-card">
-            <div class="text-2xl font-bold text-accent-600">{{ meanProportion.toFixed(3) }}</div>
-            <div class="text-sm text-gray-600">Mean</div>
+            <div class="text-2xl font-bold text-blue-400">{{ meanProportion.toFixed(3) }}</div>
+            <div class="text-sm text-slate-300">Mean</div>
           </div>
           <div class="stat-card">
-            <div class="text-2xl font-bold text-blue-600">{{ stdDeviation.toFixed(3) }}</div>
-            <div class="text-sm text-gray-600">Std Deviation</div>
+            <div class="text-2xl font-bold text-purple-400">{{ stdDeviation.toFixed(3) }}</div>
+            <div class="text-sm text-slate-300">Std Deviation</div>
           </div>
           <div class="stat-card">
-            <div class="text-2xl font-bold text-purple-600">{{ (rangeValue * 100).toFixed(1) }}%</div>
-            <div class="text-sm text-gray-600">Range</div>
+            <div class="text-2xl font-bold text-pink-400">{{ (rangeValue * 100).toFixed(1) }}%</div>
+            <div class="text-sm text-slate-300">Range</div>
           </div>
         </div>
         
         <!-- Recent Values Display -->
-        <div class="bg-white rounded-lg p-4 border">
-          <h3 class="font-semibold mb-3">Last {{ Math.min(10, proportionData.length) }} entries:</h3>
+        <div class="bg-slate-700/30 rounded-lg p-4 border border-slate-600/30">
+          <h3 class="font-semibold mb-3 text-cyan-200">Last {{ Math.min(10, proportionData.length) }} entries:</h3>
           <div class="flex flex-wrap gap-2">
             <div 
               v-for="(value, index) in recentEntries" 
               :key="index"
-              class="px-3 py-1 bg-primary-100 text-primary-800 rounded-full text-sm font-medium animate-fade-in"
+              class="px-3 py-1 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 text-cyan-200 border border-cyan-500/30 rounded-full text-sm font-medium animate-fade-in"
               :style="{ animationDelay: `${index * 100}ms` }"
             >
               {{ value.toFixed(3) }}
@@ -148,46 +148,46 @@
           
           <div class="space-y-4">
             <div class="stat-card">
-              <div class="text-lg font-semibold text-gray-700 mb-2">Distribution Summary</div>
+              <div class="text-lg font-semibold text-cyan-200 mb-2">Lab Results Summary</div>
               <div class="space-y-2">
                 <div class="flex justify-between">
-                  <span class="text-gray-600">Count:</span>
-                  <span class="font-semibold">{{ proportionData.length }}</span>
+                  <span class="text-slate-300">Sample Size:</span>
+                  <span class="font-semibold text-cyan-300">{{ proportionData.length }}</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-gray-600">Mean:</span>
-                  <span class="font-semibold">{{ meanProportion.toFixed(3) }}</span>
+                  <span class="text-slate-300">Mean:</span>
+                  <span class="font-semibold text-blue-300">{{ meanProportion.toFixed(3) }}</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-gray-600">Median:</span>
-                  <span class="font-semibold">{{ medianProportion.toFixed(3) }}</span>
+                  <span class="text-slate-300">Median:</span>
+                  <span class="font-semibold text-purple-300">{{ medianProportion.toFixed(3) }}</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-gray-600">Std Dev:</span>
-                  <span class="font-semibold">{{ stdDeviation.toFixed(3) }}</span>
+                  <span class="text-slate-300">Std Dev:</span>
+                  <span class="font-semibold text-pink-300">{{ stdDeviation.toFixed(3) }}</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-gray-600">Min:</span>
-                  <span class="font-semibold">{{ minValue.toFixed(3) }}</span>
+                  <span class="text-slate-300">Min:</span>
+                  <span class="font-semibold text-green-300">{{ minValue.toFixed(3) }}</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="text-gray-600">Max:</span>
-                  <span class="font-semibold">{{ maxValue.toFixed(3) }}</span>
+                  <span class="text-slate-300">Max:</span>
+                  <span class="font-semibold text-yellow-300">{{ maxValue.toFixed(3) }}</span>
                 </div>
               </div>
             </div>
             
             <div class="stat-card">
-              <div class="text-lg font-semibold text-gray-700 mb-2">Distribution Shape</div>
-              <div class="text-sm text-gray-600 leading-relaxed">
-                As more participants enter their proportion values, you can observe how the data distributes and whether it follows any particular pattern.
+              <div class="text-lg font-semibold text-cyan-200 mb-2">Distribution Analysis</div>
+              <div class="text-sm text-slate-300 leading-relaxed">
+                As more students contribute their proportion values, observe how the data distributes and approaches normality. Look for the bell curve pattern!
               </div>
             </div>
             
             <div class="stat-card">
-              <div class="text-lg font-semibold text-gray-700 mb-2">Instructions</div>
-              <div class="text-sm text-gray-600 leading-relaxed">
-                Each participant should enter their own proportion value. The histogram will update in real-time to show the collective distribution.
+              <div class="text-lg font-semibold text-cyan-200 mb-2">Lab Instructions</div>
+              <div class="text-sm text-slate-300 leading-relaxed">
+                Each student should enter their calculated proportion value. The histogram updates in real-time to show the class distribution.
               </div>
             </div>
           </div>
@@ -197,27 +197,27 @@
       <!-- Getting Started Message -->
       <div v-else class="card text-center">
         <div class="max-w-md mx-auto space-y-4">
-          <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto">
-            <BarChart3 class="w-8 h-8 text-primary-600" />
+          <div class="w-16 h-16 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-full flex items-center justify-center mx-auto border border-cyan-500/30">
+            <FlaskIcon :size="32" />
           </div>
-          <h3 class="text-xl font-semibold text-gray-800">Ready to Collect Data!</h3>
-          <p class="text-gray-600">
+          <h3 class="text-xl font-semibold text-cyan-200">Begin Your Experiment!</h3>
+          <p class="text-slate-300">
             Start entering proportion values to see the distribution build up in real-time. 
-            Each participant can contribute their own data point.
+            Each student can contribute their calculated data point to the lab.
           </p>
         </div>
       </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-16">
+    <footer class="bg-slate-800/50 border-t border-slate-600/30 mt-16">
       <div class="max-w-7xl mx-auto px-6 py-8">
         <div class="flex flex-col items-center justify-center space-y-4">
-          <div class="flex items-center space-x-2 text-gray-600">
-            <BarChart3 class="w-5 h-5" />
-            <span class="font-semibold">Real-Time Proportion Distribution Lab</span>
+          <div class="flex items-center space-x-2 text-cyan-200">
+            <FlaskIcon :size="20" />
+            <span class="font-semibold">PROPORTION LAB</span>
           </div>
-          <div class="text-center text-sm text-gray-500 space-y-2">
+          <div class="text-center text-sm text-slate-300 space-y-2">
             <div class="flex items-center justify-center space-x-4">
               <span>👨‍💻 Created by <strong>JiaceZhao</strong></span>
               <span>•</span>
@@ -225,14 +225,14 @@
                 href="https://github.com/JiaceZhao/Real-Time-Proportion-Distribution-Lab"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-blue-600 hover:text-blue-800 transition-colors flex items-center space-x-1"
+                class="text-cyan-400 hover:text-cyan-300 transition-colors flex items-center space-x-1"
               >
                 <Github class="w-4 h-4" />
                 <span>View Source</span>
               </a>
             </div>
             <div>
-              Perfect for statistics education, science fair projects, and data visualization
+              AP Statistics Class of 2025 • Interactive Laboratory Experience
             </div>
             <div class="text-xs">
               MIT License - Free for educational and commercial use
@@ -246,9 +246,10 @@
 
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
-import { BarChart3, Plus, List, TrendingUp, RotateCcw, Github } from 'lucide-vue-next'
+import { Plus, List, TrendingUp, RotateCcw, Github } from 'lucide-vue-next'
 import DistributionChart from './components/DistributionChart.vue'
 import DataManager from './components/DataManager.vue'
+import FlaskIcon from './components/FlaskIcon.vue'
 
 // Reactive state
 const inputProportion = ref('')

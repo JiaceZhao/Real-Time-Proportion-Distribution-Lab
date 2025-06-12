@@ -24,7 +24,7 @@
     </div>
     
     <!-- Chart Container -->
-    <div class="relative w-full bg-gray-50 rounded-lg border-2 border-dashed border-gray-200" style="height: 400px;">
+    <div class="relative w-full bg-slate-800/50 rounded-lg border-2 border-dashed border-slate-600/30" style="height: 400px;">
       <!-- Celebration Effects -->
       <div v-if="normalityStatus.level >= 4" class="absolute inset-0 pointer-events-none overflow-hidden rounded-lg z-30">
         <!-- Confetti Drop -->
@@ -46,6 +46,9 @@
         <div v-if="normalityStatus.level >= 5" class="absolute inset-0 animate-rainbow-pulse opacity-10 rounded-lg"></div>
       </div>
       
+      <!-- Ribbon Shower for Perfect Normality -->
+      <div v-if="normalityStatus.level >= 5" id="ribbon-container" class="absolute inset-0 pointer-events-none overflow-hidden z-40"></div>
+      
       <!-- Glow Effect for High Normality -->
       <div 
         v-if="normalityStatus.level >= 3"
@@ -61,16 +64,16 @@
       
       <!-- Loading/Empty States -->
       <div v-if="data.length === 0" class="absolute inset-0 flex items-center justify-center">
-        <div class="text-gray-400 text-center">
-          <div class="text-4xl mb-2">📊</div>
-          <div class="text-lg font-medium">Enter some data to see the distribution</div>
-          <div class="text-sm mt-1">Add proportion values above to generate the histogram</div>
+        <div class="text-slate-400 text-center">
+          <div class="text-4xl mb-2">🧪</div>
+          <div class="text-lg font-medium text-cyan-300">Start your experiment!</div>
+          <div class="text-sm mt-1 text-slate-300">Add proportion values above to generate the distribution</div>
         </div>
       </div>
       
-      <div v-else-if="!chartInitialized" class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75">
-        <div class="text-gray-600 text-center">
-          <div class="animate-spin w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full mx-auto mb-2"></div>
+      <div v-else-if="!chartInitialized" class="absolute inset-0 flex items-center justify-center bg-slate-800/75">
+        <div class="text-cyan-300 text-center">
+          <div class="animate-spin w-8 h-8 border-4 border-cyan-500 border-t-transparent rounded-full mx-auto mb-2"></div>
           <div>Loading chart...</div>
         </div>
       </div>
@@ -79,17 +82,17 @@
     <!-- Celebration Message -->
     <div v-if="normalityStatus.level >= 4" class="mt-4 text-center">
       <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full font-semibold animate-bounce">
-        🎉 Amazing! Your distribution looks beautifully normal! 🎉
+        🧪 Experiment Success! Perfect Normal Distribution! 🎉
       </div>
     </div>
     <div v-else-if="normalityStatus.level >= 3" class="mt-4 text-center">
-      <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full font-semibold">
-        ✨ Getting closer to a normal distribution! ✨
+      <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-500 text-white rounded-full font-semibold">
+        ⚗️ Excellent! Your data is approaching normality! ✨
       </div>
     </div>
     
-    <div class="mt-4 text-sm text-gray-600 text-center">
-      This histogram shows the distribution of all proportion values entered by participants
+    <div class="mt-4 text-sm text-slate-300 text-center">
+      This histogram shows the distribution of all proportion values collected in the lab
     </div>
   </div>
 </template>
@@ -215,6 +218,8 @@ const updateNormalityStatus = () => {
       dotColor = 'bg-gradient-to-r from-purple-400 to-pink-400'
       glowClass = 'shadow-2xl shadow-pink-300'
       generateConfettiPieces()
+      // Trigger ribbon shower for perfect normality
+      setTimeout(() => createRibbonShower(), 1000)
       break
   }
   
@@ -241,6 +246,49 @@ const generateConfettiPieces = () => {
       generateConfettiPieces()
     }
   }, 500)
+}
+
+// Create ribbon shower effect for perfect normality
+const createRibbonShower = () => {
+  if (normalityStatus.value.level < 5) return
+  
+  const container = document.getElementById('ribbon-container')
+  if (!container) return
+  
+  // Create multiple ribbons
+  for (let i = 0; i < 20; i++) {
+    setTimeout(() => {
+      const ribbon = document.createElement('div')
+      ribbon.className = 'ribbon-particle'
+      ribbon.style.left = Math.random() * 100 + '%'
+      ribbon.style.top = '-20px'
+      ribbon.style.width = '4px'
+      ribbon.style.height = '50px'
+      ribbon.style.background = `linear-gradient(45deg, 
+        hsl(${Math.random() * 360}, 70%, 60%), 
+        hsl(${Math.random() * 360}, 70%, 70%))`
+      ribbon.style.animationDuration = (3 + Math.random() * 2) + 's'
+      ribbon.style.animationDelay = Math.random() * 2 + 's'
+      ribbon.style.borderRadius = '2px'
+      ribbon.style.boxShadow = '0 0 10px rgba(255,255,255,0.3)'
+      
+      container.appendChild(ribbon)
+      
+      // Remove ribbon after animation
+      setTimeout(() => {
+        if (ribbon.parentNode) {
+          ribbon.parentNode.removeChild(ribbon)
+        }
+      }, 6000)
+    }, i * 100)
+  }
+  
+  // Continue creating ribbons every 2 seconds for perfect normality
+  setTimeout(() => {
+    if (normalityStatus.value.level >= 5) {
+      createRibbonShower()
+    }
+  }, 2000)
 }
 
 // Get random emoji
